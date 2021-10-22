@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:english_card/pages/home_page.dart';
 import 'package:english_card/ui/app_color.dart';
 import 'package:english_card/ui/app_path.dart';
@@ -45,13 +43,13 @@ class LandingPage extends StatelessWidget {
                 child: Padding(
               padding: const EdgeInsets.only(bottom: 72),
               child: RawMaterialButton(
-                shape: CircleBorder(),
+                shape: const CircleBorder(),
                 fillColor: AppColors.lightBlue,
                 child: Image.asset(AppPath.rightArrowPath),
                 onPressed: () {
                   Navigator.pushAndRemoveUntil(
                       context,
-                      MaterialPageRoute(builder: (_) => HomePage()),
+                      MaterialPageRoute(builder: (_) => const HomePage()),
                       (route) => false);
                 },
               ),
