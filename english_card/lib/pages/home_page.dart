@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
           child: Image.asset(AppPath.menuPath),
         ),
       ),
-      body: Container(
+      body: SizedBox(
         width: double.infinity,
         child: Column(
           children: [
