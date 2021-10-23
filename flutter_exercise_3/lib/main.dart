@@ -73,37 +73,53 @@ class MyHomePage extends StatelessWidget {
             decoration: const BoxDecoration(
                 border:
                     Border(bottom: BorderSide(color: Colors.black, width: 1))),
-            height: size.height * 1 / 8,
+            height: size.height * 1 / 6,
             child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: data.length,
                 itemBuilder: (context, index) => Padding(
                       padding: const EdgeInsets.only(left: 12),
-                      child: Row(
+                      child: Column(
                         children: [
-                          Stack(
+                          Row(
                             children: [
-                              CircleAvatar(
-                                radius: 42,
-                                backgroundImage: AssetImage(data[index].image),
-                              ),
-                              if (data[index].isActive)
-                                Positioned(
-                                  right: size.width * 1 / 200,
-                                  bottom: size.height * 1 / 200,
-                                  child: Container(
-                                    width: 20,
-                                    height: 20,
-                                    decoration: BoxDecoration(
-                                        color: Colors.green,
-                                        shape: BoxShape.circle,
-                                        border: Border.all(
-                                          color: Theme.of(context)
-                                              .scaffoldBackgroundColor,
-                                        )),
+                              Stack(
+                                children: [
+                                  CircleAvatar(
+                                    radius: 42,
+                                    backgroundImage:
+                                        AssetImage(data[index].image),
                                   ),
-                                )
+                                  if (data[index].isActive)
+                                    Positioned(
+                                      right: size.width * 1 / 200,
+                                      bottom: size.height * 1 / 200,
+                                      child: Container(
+                                        width: 20,
+                                        height: 20,
+                                        decoration: BoxDecoration(
+                                            color: Colors.green,
+                                            shape: BoxShape.circle,
+                                            border: Border.all(
+                                              color: Theme.of(context)
+                                                  .scaffoldBackgroundColor,
+                                            )),
+                                      ),
+                                    )
+                                ],
+                              )
                             ],
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Row(
+                              children: [
+                                Text(
+                                  data[index].name,
+                                  style: AppStyle.h5,
+                                )
+                              ],
+                            ),
                           )
                         ],
                       ),
