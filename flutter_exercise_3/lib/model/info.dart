@@ -17,7 +17,11 @@ List data = [
   Infomation(
       'Viktor', 'Vẽ không bạn eyyyyyyy', AppImage.viktor, '1m ago', true),
   Infomation(
-      'Daxua', 'Solo yasuo chặt tay không.', AppImage.yasuo, '1m ago', true),
+      'Yasuo', 'Solo daxua chặt tay không.', AppImage.yasuo, '1m ago', true),
   Infomation('Zed', 'Thằng daxua solo thua t mà bùng kèo rồi', AppImage.zed,
+      '2h ago', false),
+  Infomation('Twisted Fate', 'Đánh tiến lên không bạn ơi', AppImage.tf,
+      '1m ago', true),
+  Infomation('Yone', 'Biết thằng em t đi đâu rồi không', AppImage.yone,
       '2h ago', false),
 ];

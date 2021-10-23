@@ -7,4 +7,6 @@ class AppImage {
   static const String viktor = imgPath + 'viktor.jpeg';
   static const String yasuo = imgPath + 'yasuo.png';
   static const String zed = imgPath + 'zed.png';
+  static const String tf = imgPath + 'tf.png';
+  static const String yone = imgPath + 'yone.jpg';
 }

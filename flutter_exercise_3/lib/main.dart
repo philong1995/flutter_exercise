@@ -46,7 +46,8 @@ class MyHomePage extends StatelessWidget {
                       onPressed: () {},
                       icon: const Icon(
                         Icons.arrow_back,
-                        color: Colors.white,
+                        color: Colors.black,
+                        size: 30,
                       )),
                 ),
                 Expanded(flex: 4, child: Container()),
@@ -55,8 +56,9 @@ class MyHomePage extends StatelessWidget {
                     child: IconButton(
                         onPressed: () {},
                         icon: const Icon(
-                          Icons.add,
-                          color: Colors.white,
+                          Icons.video_call,
+                          color: Colors.black,
+                          size: 30,
                         )))
               ],
             ),
@@ -65,11 +67,47 @@ class MyHomePage extends StatelessWidget {
             margin: const EdgeInsets.only(left: 16),
             height: size.height * 1 / 14,
             alignment: Alignment.centerLeft,
-            child: const Text('Message', style: AppStyle.h3),
+            child: const Text('Messages', style: AppStyle.h3),
           ),
           Container(
+            decoration: const BoxDecoration(
+                border:
+                    Border(bottom: BorderSide(color: Colors.black, width: 1))),
             height: size.height * 1 / 8,
-            color: Colors.redAccent,
+            child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: data.length,
+                itemBuilder: (context, index) => Padding(
+                      padding: const EdgeInsets.only(left: 12),
+                      child: Row(
+                        children: [
+                          Stack(
+                            children: [
+                              CircleAvatar(
+                                radius: 42,
+                                backgroundImage: AssetImage(data[index].image),
+                              ),
+                              if (data[index].isActive)
+                                Positioned(
+                                  right: size.width * 1 / 200,
+                                  bottom: size.height * 1 / 200,
+                                  child: Container(
+                                    width: 20,
+                                    height: 20,
+                                    decoration: BoxDecoration(
+                                        color: Colors.green,
+                                        shape: BoxShape.circle,
+                                        border: Border.all(
+                                          color: Theme.of(context)
+                                              .scaffoldBackgroundColor,
+                                        )),
+                                  ),
+                                )
+                            ],
+                          )
+                        ],
+                      ),
+                    )),
           ),
           Expanded(
               child: ListView.builder(
@@ -90,48 +128,70 @@ class ChatCards extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-      child: Row(
-        children: [
-          CircleAvatar(
-            radius: 48,
-            backgroundImage: AssetImage(info.image),
-          ),
-          Expanded(
-              child: Padding(
-            padding: const EdgeInsets.only(left: 12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+    return InkWell(
+      onTap: () {},
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+        child: Row(
+          children: [
+            Stack(
               children: [
-                Text(
-                  info.name,
-                  style: AppStyle.h4,
+                CircleAvatar(
+                  radius: 32,
+                  backgroundImage: AssetImage(info.image),
                 ),
-                const SizedBox(
-                  height: 8,
-                ),
-                Opacity(
-                  opacity: 0.5,
-                  child: Text(
-                    info.lastMessage,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: AppStyle.h5,
-                  ),
-                ),
+                if (info.isActive)
+                  Positioned(
+                    right: 0,
+                    bottom: 0,
+                    child: Container(
+                      width: 16,
+                      height: 16,
+                      decoration: BoxDecoration(
+                          color: Colors.green,
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: Theme.of(context).scaffoldBackgroundColor,
+                          )),
+                    ),
+                  )
               ],
             ),
-          )),
-          Opacity(
-            opacity: 0.5,
-            child: Text(
-              info.time,
-              maxLines: 1,
-              style: AppStyle.h5,
+            Expanded(
+                child: Padding(
+              padding: const EdgeInsets.only(left: 12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    info.name,
+                    style: AppStyle.h4,
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Opacity(
+                    opacity: 0.5,
+                    child: Text(
+                      info.lastMessage,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: AppStyle.h52,
+                    ),
+                  ),
+                ],
+              ),
+            )),
+            Opacity(
+              opacity: 0.75,
+              child: Text(
+                info.time,
+                maxLines: 1,
+                style: AppStyle.h52,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
