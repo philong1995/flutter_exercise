@@ -1,6 +1,9 @@
+import 'dart:math';
+import 'package:english_card/data/data.dart';
 import 'package:english_card/ui/app_color.dart';
 import 'package:english_card/ui/app_path.dart';
 import 'package:english_card/ui/app_styles.dart';
+import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -13,7 +16,50 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
-  PageController _pageController = PageController();
+  late PageController _pageController;
+
+  List<DataEnglish> words = [];
+
+  List<int> fixedListRandom({int len = 1, int max = 120, int min = 1}) {
+    if (len > max || len < min) {
+      return [];
+    }
+    List<int> newList = [];
+
+    Random random = Random();
+    int count = 1;
+    while (count <= len) {
+      int val = random.nextInt(max);
+      if (newList.contains([val])) {
+        continue;
+      } else {
+        newList.add(val);
+        count++;
+      }
+    }
+    return newList;
+  }
+
+  getDataEnglish() {
+    List<String> newList = [];
+    List<int> rans = fixedListRandom(len: 5, max: nouns.length);
+    rans.forEach((index) {
+      newList.add(nouns[index]);
+    });
+
+    words = newList
+        .map((e) => DataEnglish(
+              noun: e,
+            ))
+        .toList();
+  }
+
+  @override
+  void initState() {
+    _pageController = PageController(viewportFraction: 0.9);
+    getDataEnglish();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,11 +86,10 @@ class _HomePageState extends State<HomePage> {
                   "It's amazing how complete is the delustion that beauty is goodness.",
                   style: AppStyles.h5.copyWith(color: AppColors.textColor)),
               height: size.height * 0.1,
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.symmetric(horizontal: 24),
               alignment: Alignment.centerLeft,
             ),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 24),
+            SizedBox(
               height: size.height * 2 / 3,
               child: PageView.builder(
                   controller: _pageController,
@@ -53,13 +98,28 @@ class _HomePageState extends State<HomePage> {
                       _currentIndex = index;
                     });
                   },
-                  itemCount: 5,
+                  itemCount: words.length,
                   itemBuilder: (context, index) {
+// Lấy chữ cái đầu tiên
+                    String firstLetter =
+                        words[index].noun != null ? words[index].noun! : '';
+                    firstLetter = firstLetter.substring(0, 1);
+// lấy những chữ cái còn lại
+                    String otherLetter =
+                        words[index].noun != null ? words[index].noun! : '';
+                    otherLetter = otherLetter.substring(1, otherLetter.length);
                     return Padding(
                       padding: const EdgeInsets.all(4),
                       child: Container(
                         padding: const EdgeInsets.all(16),
                         decoration: const BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black26,
+                                offset: Offset(3, 6),
+                                blurRadius: 6,
+                              )
+                            ],
                             color: AppColors.primaryColor,
                             borderRadius:
                                 BorderRadius.all(Radius.circular(24))),
@@ -77,7 +137,7 @@ class _HomePageState extends State<HomePage> {
                                 overflow: TextOverflow.ellipsis,
                                 textAlign: TextAlign.start,
                                 text: TextSpan(
-                                    text: 'B',
+                                    text: firstLetter,
                                     style: TextStyle(
                                         fontFamily: FontFamily.sen,
                                         fontSize: 89,
@@ -91,7 +151,7 @@ class _HomePageState extends State<HomePage> {
                                         ]),
                                     children: [
                                       TextSpan(
-                                        text: 'eautiful',
+                                        text: otherLetter,
                                         style: TextStyle(
                                             fontFamily: FontFamily.sen,
                                             fontSize: 56,
@@ -122,18 +182,21 @@ class _HomePageState extends State<HomePage> {
                   }),
             ),
             //Indicator
-            SizedBox(
-              height: size.height * 1 / 14,
-              child: Container(
-                alignment: Alignment.center,
-                padding: const EdgeInsets.symmetric(vertical: 24),
-                child: ListView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 5,
-                    itemBuilder: (context, index) {
-                      return buildIndicator(index == _currentIndex, size);
-                    }),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: SizedBox(
+                height: size.height * 1 / 16,
+                child: Container(
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.symmetric(vertical: 24),
+                  child: ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 5,
+                      itemBuilder: (context, index) {
+                        return buildIndicator(index == _currentIndex, size);
+                      }),
+                ),
               ),
             ),
           ],
