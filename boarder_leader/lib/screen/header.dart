@@ -9,8 +9,8 @@ class WidgetHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      height: size.height * 1 / 9,
-      alignment: Alignment.bottomCenter,
+      height: size.height * 1 / 8,
+      alignment: Alignment.center,
       child: Text(
         'Leaderboard',
         style: AppStyle.h3.copyWith(color: AppColors.colorTitle),

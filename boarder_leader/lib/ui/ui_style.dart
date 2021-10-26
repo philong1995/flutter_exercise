@@ -12,7 +12,7 @@ class AppStyle {
   static const TextStyle h5 = TextStyle(
       fontFamily: FontFamily.cookie, fontSize: 22, color: Colors.black);
   static const TextStyle h6 = TextStyle(
-      fontFamily: FontFamily.cookie, fontSize: 9.89, color: Colors.black);
+      fontFamily: FontFamily.cookie, fontSize: 14.89, color: Colors.black);
 }
 
 class FontFamily {

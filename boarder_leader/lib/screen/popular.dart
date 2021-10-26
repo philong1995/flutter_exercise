@@ -8,7 +8,7 @@ class WidgetPopular extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(left: 8),
+      padding: const EdgeInsets.only(left: 16),
       alignment: Alignment.bottomLeft,
       height: MediaQuery.of(context).size.height * 1 / 20,
       child: Text(
